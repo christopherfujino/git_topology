@@ -2,3 +2,7 @@ name: git_topology
 
 environment:
   sdk: '>=2.12.0 <4.0.0'
+
+dependencies:
+  file: 6.1.4
+  process: 4.2.4
