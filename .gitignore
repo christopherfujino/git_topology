@@ -1,0 +1,3 @@
+.dart_tool
+# all deps should be exactly pinned, rev with dart pub upgrade
+pubspec.lock
