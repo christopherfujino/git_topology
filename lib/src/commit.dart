@@ -1,7 +1,18 @@
 import 'context.dart';
 
 class Commit {
-  Commit(this.revision, this.ctx) : parentRevisions = _lookupParents(revision, ctx);
+  Commit._(this.revision, this.ctx)
+      : parentRevisions = _lookupParents(revision, ctx);
+
+  factory Commit(String revision, Context ctx) {
+    Commit? that = ctx.commits[revision];
+    if (that != null) {
+      return that;
+    }
+    that = Commit._(revision, ctx);
+    ctx.commits[revision] = that;
+    return that;
+  }
 
   final String revision;
   final Context ctx;
@@ -16,8 +27,5 @@ class Commit {
 List<String> _lookupParents(String revision, Context ctx) {
   return (ctx.runWithStdoutSync(
     <String>['git', 'show', '--no-patch', '--pretty=%P', revision],
-  ))
-      .split(' ')
-      .where((String rev) => rev.isNotEmpty)
-      .toList();
+  )).split(' ').where((String rev) => rev.isNotEmpty).toList();
 }

@@ -1,9 +1,12 @@
 import 'package:process/process.dart';
 
+import 'commit.dart';
+
 class Context {
-  const Context();
+  Context();
 
   final _pm = const LocalProcessManager();
+  final commits = <String, Commit>{};
 
   Future<String> runWithStdout(List<String> command) async {
     final result = await _pm.run(command);
